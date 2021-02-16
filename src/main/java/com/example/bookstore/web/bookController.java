@@ -9,15 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.CategoryRepository;
 
 @Controller
 public class bookController {
 	
 	// Global variable:
 	// Creating a bookRepository object that refers to BookRepository class
-	// and is used to manipulate data of the applica
+	// and is used to show and manipulate the data of the Book objects
 	@Autowired
 	private BookRepository bookRepository;
+	
+	// Global variable:
+	// Creating a categoryRepository object that refers to CategoryRepository class
+	// and is used to show and manipulate the data of the Category objects
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	
 	// Creating a request mapping of html page "booklist" 
@@ -40,9 +47,13 @@ public class bookController {
 	@RequestMapping(value = "/add")
 	public String addBook(Model model) {
 		
-		// A new empty Book object is stored as an attribute
-		// of the Model object
+		
+		// -A new empty Book object is stored as an attribute to the Model object
+		// -The outcome of categoryRepository's findAll function,
+		// 	which searches for all the objects based on the Category class,
+		//  is stored as an attribute to the Model object
 		model.addAttribute("book", new Book());
+		model.addAttribute("categories", categoryRepository.findAll());
 		
 		// The content of page "addbook" is shown
 		return "addbook";
@@ -71,10 +82,14 @@ public class bookController {
 	@RequestMapping(value = "/edit/{id}")
 	public String editBook(@PathVariable("id") Long id, Model model) {
 		
-		// The outcome of bookRepository object's function findById,
-		// which uses the given id variable to find the right Book object,
-		// is stored as an attribute of the Model object
+		//-The outcome of bookRepository object's function findById,
+		//   which uses the given id variable to find the right Book object,
+		//   is stored as an attribute of the Model object
+		//-The outcome of categoryRepository's function findAll,
+		//	 searches for all objects based on Category class.
+		//	 is stored as an attribute of the Model object
 		model.addAttribute("book", bookRepository.findById(id));
+		model.addAttribute("categories", categoryRepository.findAll());
 		
 		//The page "editbook" is shown
 		return "editbook";

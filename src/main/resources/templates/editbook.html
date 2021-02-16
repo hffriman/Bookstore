@@ -5,33 +5,51 @@
 
 <title>Edit book</title>
 <meta http-equiv = "Content-Type" content="text/html; charset=UTF-8"/>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 
 <div style="text-align:center">
 
-<h2>Edit a Book</h2>
+<h2 style="height:60px;">Edit a Book</h2>
 
 <form th:object="${book}" th:action="@{../save}" action="#" method="post">
 
 <input type="hidden" th:field="*{id}" class="form-control"/>
 
-<label for="title">Title:</label>
-<input type="text" size="50" th:field="*{title}"/>
-<div style="clear: both; display:block; height:10px;"></div>
+<div class="form-group">
+	<label for="title">Title:</label>
+	<input type="text" class="col-sm-5 control-label" size="50" th:field="*{title}"/>
+	<div style="clear: both; display:block; height:10px;"></div>
+</div>
 
-<label for="title">Author:</label>
-<input type="text" size="50" th:field="*{author}"/>
-<div style="clear: both; display:block; height:10px;"></div>
+<div class="form-group">
+	<label for="title">Author:</label>
+	<input type="text" class="col-sm-5 control-label" size="50" th:field="*{author}"/>
+	<div style="clear: both; display:block; height:10px;"></div>
+</div>
 
-<label for="title">ISBN:</label>
-<input type="text" size="50" th:field="*{isbn}"/>
-<div style="clear: both; display:block; height:10px;"></div>
+<div class="form-group">
+	<label for="title">ISBN:</label>
+	<input type="text" class="col-sm-5 control-label" size="50" th:field="*{isbn}"/>
+	<div style="clear: both; display:block; height:10px;"></div>
+</div>
 
-<label for="title">Year:</label>
-<input type="text" size="50" th:field="*{year}"/>
-<div style="clear: both; display:block; height:10px;"></div>
+<div class="form-group">
+	<label for="title">Year:</label>
+	<input type="text" class="col-sm-5 control-label" size="50" th:field="*{year}"/>
+	<div style="clear: both; display:block; height:10px;"></div>
+</div>
+
+<div class="form-group">
+	<label for="categorylist">Category</label>
+	<select id="categorylist" th:field="*{category}" class="col-sm-5 control-label">
+	<option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}"></option>
+	</select>
+	<div style="clear: both; display:block; height:10px;"></div>
+</div>
+
 
 <input type="submit" value="Save"/></input>
 </form>

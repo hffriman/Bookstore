@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
+import com.example.bookstore.domain.Category;
+import com.example.bookstore.domain.CategoryRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -25,7 +27,7 @@ public class BookstoreApplication {
 	// Adding a function that connects to the BookRepository interface object
 	// and makes creation of test commands possible
 	@Bean
-	public CommandLineRunner demo (BookRepository bookRepository) {
+	public CommandLineRunner demo (BookRepository bookRepository, CategoryRepository categoryRepository) {
 		
 	// Under return(args), the following commands happen:
 	return (args) -> {
@@ -33,20 +35,21 @@ public class BookstoreApplication {
 		// Adding text into the Spring Boot console
 		log.info("Saving books");
 		
-		// Creating Book objects with parameters
-		Book b1 = new Book("The Flowers of Evil", "Charles Baudelaire", 1857, "979-8593932143", 16.95);
-		Book b2 = new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "978-1124000138", 16.00);
-		Book b3= new Book("Animal Farm", "George Orwell", 1945, "978-0451526342", 7.48);
-		Book b4 = new Book("The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 2003, "978-0316039017", 30.00);
-		Book b5 = new Book("Violet Evergarden: Volume 1", "Kana Akatsuki", 2014, "978-4-907064-43-3", 10.95);
+		// Saving new Category objects with parameters
+		categoryRepository.save(new Category("Classic Novel"));
+		categoryRepository.save(new Category("Modern Novel"));
+		categoryRepository.save(new Category("Classic Poetry"));
+		categoryRepository.save(new Category("Modern Poetry"));
+		categoryRepository.save(new Category("Nonfiction"));
 		
-		// Using bookRepository object to save all the created Book objects
-		bookRepository.save(b1);
-		bookRepository.save(b2);
-		bookRepository.save(b3);
-		bookRepository.save(b4);
-		bookRepository.save(b5);
+		// Saving new Book objects with parameters 
+		bookRepository.save(new Book("The Flowers of Evil", "Charles Baudelaire", 1857, "979-8593932143", 16.95, categoryRepository.findByName("Classic Poetry").get(0)));
+		bookRepository.save(new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "978-1124000138", 16.00, categoryRepository.findByName("Classic Novel").get(0)));
+		bookRepository.save(new Book("Animal Farm", "George Orwell", 1945, "978-0451526342", 7.48, categoryRepository.findByName("Classic Novel").get(0)));
+		bookRepository.save(new Book("The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 2003, "978-0316039017", 30.00, categoryRepository.findByName("Modern Novel").get(0)));
+		bookRepository.save(new Book("Violet Evergarden: Volume 1", "Kana Akatsuki", 2014, "978-4-907064-43-3", 10.95, categoryRepository.findByName("Modern Novel").get(0)));
 		
+
 		// Adding text into the Spring Boot console
 		log.info("Fetch all books");
 		
