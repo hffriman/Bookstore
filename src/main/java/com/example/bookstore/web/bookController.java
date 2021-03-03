@@ -1,5 +1,8 @@
 package com.example.bookstore.web;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.CategoryRepository;
@@ -41,6 +46,25 @@ public class bookController {
 		return "booklist";
 	}
 	
+	
+	// Creating a request mapping of html page "books",
+	// which uses both the RESTful service and the bookRepository object's ability
+	// to find all the attributes of every existing Book database table
+	// and to print them in JSON file form through a list of Book objects.
+	@RequestMapping(value="/books", method = RequestMethod.GET)
+	public @ResponseBody List<Book> bookListRest() {
+		
+		return (List<Book>) bookRepository.findAll();
+	}
+	
+	// Creating a request mapping for html page "book",
+	// which uses both the RESTful service and the bookRepository object's 
+	// ability to find the attributes of one Book database based on
+	// the index number typed in the page, and finally prints them in JSON file.
+	@RequestMapping(value="/book/{id}", method=RequestMethod.GET)
+	public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long id) {
+		return bookRepository.findById(id);
+	}
 	
 	// Creating a request mapping of html page "add"
 	// that is used to add new Book objects into the application

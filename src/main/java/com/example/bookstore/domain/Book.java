@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 //Making the Book class capable of being created as a database object
 @Entity
@@ -28,8 +30,12 @@ public class Book {
 	// -ManyToOne means that there can be many Book classes in one Category class
 	// -By using JoinColumn and using Category classe's attribute as an foreign key,
 	// 	the connection between database classes is made
+	// -By using JsonManagedReference, the data of the Book and Category 
+	//  database tables is possible to recognize and to be stored as backup JSON data
+	
 	@ManyToOne
 	@JoinColumn(name = "categoryid")
+	@JsonManagedReference
 	private Category category;
 	
 	

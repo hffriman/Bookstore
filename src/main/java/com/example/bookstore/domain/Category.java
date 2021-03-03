@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 // Creating Category class as an database entity
 @Entity
 public class Category {
@@ -23,9 +25,12 @@ public class Category {
 	private String name;
 	
 	// -Creating a database relationship to Category class
+	//		-By using JsonBackReference, the data of the Book and
+	//      Category database tables is stored in JSON format as backup
 	// 		-By using OneToMany, one Category object is able
 	//  	 to contain many Book objects
 	// -Creating a list object of Book objects
+	@JsonBackReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="category")
 	private List<Book> books;
 	
