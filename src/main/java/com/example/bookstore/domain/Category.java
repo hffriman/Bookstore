@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 // Creating Category class as an database entity
 @Entity
@@ -30,7 +31,7 @@ public class Category {
 	// 		-By using OneToMany, one Category object is able
 	//  	 to contain many Book objects
 	// -Creating a list object of Book objects
-	@JsonBackReference
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="category")
 	private List<Book> books;
 	

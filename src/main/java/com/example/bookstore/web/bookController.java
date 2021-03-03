@@ -16,6 +16,15 @@ import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.CategoryRepository;
 
+
+// ATTENTION!! <-----------------------------------
+// HERE ARE THE CURL COMMANDS I USED IN REST EXERCISE 2:
+// SUCCESSFUL ----> Searching: curl http://localhost:8080/api/books
+// FAILED --------> Adding: curl -H "Content-Type: application/json" -X POST -d '{"title":"Mobile Suit Gundam","author":"Yoshiyuki Tomino"}' http://localhost:8080/api/books									<------ FAILED
+// SUCCESSFUL-----> Deleting: curl -X DELETE http://localhost:8080/api/books/9
+// FAILED---------> Updating: curl -X PUT http://localhost:8080/api/books/7 -H 'Content-Type:application/json' -d '{"author":"Anonymous","year":"1800"}'
+
+
 @Controller
 public class bookController {
 	
