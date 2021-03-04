@@ -10,7 +10,7 @@
 <body>
 <div class="container">
 <div class="col-md-4">
-		<h1>Books</h1>
+<h1>Books</h1>
 </div>
 <div class="col-md-4">
 	<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
@@ -30,7 +30,7 @@
 		<th> Category</th>
 		<th> Year </th>
 		<th> Price </th>
-		<th sec:authorize="hasRole('ADMIN')"></th>
+		<th sec:authorize="hasAuthority('ADMIN')"></th>
 	</tr>
 </thead>
 
@@ -42,8 +42,8 @@
 	<td th:text="${book.category.name}"></td>
 	<td th:text="${book.year}"></td>
 	<td th:text="${book.price}"></td>
-		<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td>
-		<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-warning">Edit</a>
+		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-xs btn-danger">Delete</a></td>
+		<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-warning">Edit</a>
 	</tr>
 </tbody>
 </table>

@@ -1,29 +1,30 @@
 package com.example.bookstore;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import com.example.bookstore.web.UserDetailServiceImpl;
 
 
 @Configuration
-@EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-	
-@Override
-protected void configure(HttpSecurity http) throws Exception {
+
+	@Autowired
+	private UserDetailServiceImpl userDetailsService;
+
+	// I FORGOT TO COMMENT THIS SECTION IN PREVIOUS EXERCISE:
+	// Creating a void function which defines
+	// which pages are either accessible or
+	// immediately loaded when the application starts
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
 	http
 		.authorizeRequests().antMatchers("/css/**").permitAll()
 		.and()
@@ -37,37 +38,14 @@ protected void configure(HttpSecurity http) throws Exception {
 		.permitAll();
 }
 
-// Creating an object based on UserDetailsService class,
-// which creates the roles for regular user and admin
-// for the application.
-// NB: IN THIS EXERCISE, THE ROLES ARE CREATED AS IN-MEMORY,
-// WHICH MEANS THAT THEY DO NOT EXIST IN A DATABASE OR ANYWHERE
-// OUTSIDE THE USER'S DEVICE
-
-@Bean
-@Override
-public UserDetailsService userDetailsService() {
-	List<UserDetails> users = new ArrayList();
-	
-	PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-	
-	UserDetails user = User
-			.withUsername("user")
-			.password(passwordEncoder.encode("user"))
-			.roles("USER")
-			.build();
-	
-	users.add(user);
-	
-	user = User
-			.withUsername("admin")
-			.password(passwordEncoder.encode("admin"))
-			.roles("USER", "ADMIN")
-			.build();
-	
-	users.add(user);
-	
-	return new InMemoryUserDetailsManager(users);
+// Creating an void function that uses
+// the AuthenticationManagerBuilder to 
+// call the userDetailsService object,
+// thus creating a new passwordEncoder object
+// to encrypt the passwords in the application
+@Autowired
+public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 }
 	
 }

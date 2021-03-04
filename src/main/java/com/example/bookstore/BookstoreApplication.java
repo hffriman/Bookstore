@@ -10,6 +10,8 @@ import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.Category;
 import com.example.bookstore.domain.CategoryRepository;
+import com.example.bookstore.domain.User;
+import com.example.bookstore.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreApplication {
@@ -26,7 +28,7 @@ public class BookstoreApplication {
 	// Adding a function that connects to the BookRepository interface object
 	// and makes creation of test commands possible
 	@Bean
-	public CommandLineRunner demo (BookRepository bookRepository, CategoryRepository categoryRepository) {
+	public CommandLineRunner demo (BookRepository bookRepository, CategoryRepository categoryRepository, UserRepository urepository) {
 		
 	// Under return(args), the following commands happen:
 	return (args) -> {
@@ -48,6 +50,12 @@ public class BookstoreApplication {
 		bookRepository.save(new Book("The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 2003, "978-0316039017", 30.00, categoryRepository.findByName("Modern Novel").get(0)));
 		bookRepository.save(new Book("Violet Evergarden: Volume 1", "Kana Akatsuki", 2014, "978-4-907064-43-3", 10.95, categoryRepository.findByName("Modern Novel").get(0)));
 		
+		// Creating User objects with passwords
+		// to test the application
+		User user1 = new User("user", "$2a$06$3jYRJrg0ghaaypjZ/.g4SethoeA51ph3UD4kZi9oPkeMTpjKU5uo6", "USER");
+		User user2 = new User("admin", "$2a$10$0MMwY.IQqpsVc1jC8u7IJ.2rT8b0Cd3b3sfIBGV2zfgnPGtT4r0.C", "ADMIN");
+		urepository.save(user1);
+		urepository.save(user2);
 		
 		// Adding text into the Spring Boot console
 		log.info("Fetch all books");

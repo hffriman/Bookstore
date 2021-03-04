@@ -143,7 +143,7 @@ public class bookController {
 	// ------NB: PreAuthorize is used to grant the delete rights------
 	// ------only for those signed in as admin------------------------
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasAuthority('ADMIN')")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		
 		// The bookRepository object's function is used
