@@ -6,7 +6,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
 import com.example.bookstore.domain.Book;
 import com.example.bookstore.domain.BookRepository;
 import com.example.bookstore.domain.Category;
@@ -49,7 +48,7 @@ public class BookstoreApplication {
 		bookRepository.save(new Book("The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 2003, "978-0316039017", 30.00, categoryRepository.findByName("Modern Novel").get(0)));
 		bookRepository.save(new Book("Violet Evergarden: Volume 1", "Kana Akatsuki", 2014, "978-4-907064-43-3", 10.95, categoryRepository.findByName("Modern Novel").get(0)));
 		
-
+		
 		// Adding text into the Spring Boot console
 		log.info("Fetch all books");
 		

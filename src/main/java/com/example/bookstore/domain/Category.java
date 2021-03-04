@@ -31,6 +31,7 @@ public class Category {
 	// 		-By using OneToMany, one Category object is able
 	//  	 to contain many Book objects
 	// -Creating a list object of Book objects
+	
 	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="category")
 	private List<Book> books;

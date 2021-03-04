@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,13 @@ public class bookController {
 	// and is used to show and manipulate the data of the Category objects
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	// Creating a request mapping of html page "login"
+	// that automatically asks the user to sign in
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
 	
 	
 	// Creating a request mapping of html page "booklist" 
@@ -132,7 +140,10 @@ public class bookController {
 	// Creating a request mapping of page "delete"
 	// which uses the Book object's id as a parameter
 	// to get an access of deleting it entirely
+	// ------NB: PreAuthorize is used to grant the delete rights------
+	// ------only for those signed in as admin------------------------
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ADMIN')")
 	public String deleteBook(@PathVariable("id") Long id, Model model) {
 		
 		// The bookRepository object's function is used
