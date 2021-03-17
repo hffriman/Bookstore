@@ -33,8 +33,14 @@ public class BookstoreApplication {
 	// Under return(args), the following commands happen:
 	return (args) -> {
 		
+		// Before the application starts its run,
+		// the already-saved Category and Book objects
+		// should be deleted before being created again
+		//-----> This prevents them from getting multiplied
+		//-----> each time the application starts
 		bookRepository.deleteAll();
 		categoryRepository.deleteAll();
+		
 		// Adding text into the Spring Boot console
 		log.info("Saving books");
 		
