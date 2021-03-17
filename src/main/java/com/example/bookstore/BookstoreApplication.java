@@ -49,6 +49,8 @@ public class BookstoreApplication {
 		bookRepository.save(new Book("Animal Farm", "George Orwell", 1945, "978-0451526342", 7.48, categoryRepository.findByName("Classic Novel").get(0)));
 		bookRepository.save(new Book("The Melancholy of Haruhi Suzumiya", "Nagaru Tanigawa", 2003, "978-0316039017", 30.00, categoryRepository.findByName("Modern Novel").get(0)));
 		bookRepository.save(new Book("Violet Evergarden: Volume 1", "Kana Akatsuki", 2014, "978-4-907064-43-3", 10.95, categoryRepository.findByName("Modern Novel").get(0)));
+		bookRepository.save(new Book("Violet Evergarden: Volume 2", "Kana Akatsuki", 2016, "978-4-907064-44-0", 10.95, categoryRepository.findByName("Modern Novel").get(0)));
+
 		
 		// Creating User objects with passwords
 		// to test the application
