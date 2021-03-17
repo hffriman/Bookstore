@@ -38,7 +38,6 @@ public class BookstoreApplication {
 		// should be deleted before being created again
 		//-----> This prevents them from getting multiplied
 		//-----> each time the application starts
-		bookRepository.deleteAll();
 		categoryRepository.deleteAll();
 		
 		// Adding text into the Spring Boot console
