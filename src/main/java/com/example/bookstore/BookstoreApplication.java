@@ -33,6 +33,8 @@ public class BookstoreApplication {
 	// Under return(args), the following commands happen:
 	return (args) -> {
 		
+		bookRepository.deleteAll();
+		categoryRepository.deleteAll();
 		// Adding text into the Spring Boot console
 		log.info("Saving books");
 		
