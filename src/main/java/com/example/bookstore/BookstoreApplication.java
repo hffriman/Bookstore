@@ -13,6 +13,9 @@ import com.example.bookstore.domain.CategoryRepository;
 import com.example.bookstore.domain.User;
 import com.example.bookstore.domain.UserRepository;
 
+// THIS PROJECT IS COMPLETE //
+// CONGRATULATIONS //
+
 @SpringBootApplication
 public class BookstoreApplication {
 
