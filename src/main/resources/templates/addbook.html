@@ -3,12 +3,11 @@
 <head>
 	<title>Add book</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
 </head>
 
 <body>
 
-<div style="text-align:center">
 <h2 style="height:60px;">Add a Book</h2>
 
 	<form th:object="${book}" th:action="@{save}" action="#" method="post">
@@ -54,7 +53,6 @@
 	<input type="submit" class="btn btn-success" value="Save"></input>
 	
 	</form>
-</div>
 
 </body>
 
