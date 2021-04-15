@@ -1,14 +1,11 @@
 package com.example.bookstore.domain;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,8 +35,6 @@ public class User {
 	@Column(name = "role", nullable = false)
 	private String role;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-	private List<Book> books;
 	
 	public User() {
 	}
@@ -83,12 +78,5 @@ public class User {
 		this.role = role;
 	}
 
-	public List<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
 	
 }
